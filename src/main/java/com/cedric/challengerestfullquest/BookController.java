@@ -20,6 +20,11 @@ public class BookController {
         return bookRepository.findAll();
     }
 
+    @PostMapping("books/search")
+    public List<Book> search(@RequestBody Map<String, String> body){
+        String searchTerm = body.get("text");
+        return bookRepository.findByTitleContainingOrDescriptionContaining(searchTerm, searchTerm);
+    }
 
     @GetMapping("/books/{id}")
     public Book read(@PathVariable int id) {
